@@ -56,7 +56,6 @@ public class UI {
                 } else if (spot.isHit()) {
                     System.out.print("X ");
                 }
-
             }
             System.out.println();
         }

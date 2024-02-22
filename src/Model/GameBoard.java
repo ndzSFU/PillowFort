@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class GameBoard {
     ArrayList<ArrayList<BoardSpot>> boardSpots;
 
+    ArrayList<Fort> Forts;
+
     public GameBoard(){
         boardSpots = new ArrayList<>();
         for(int x = 0; x < 10; x++){
