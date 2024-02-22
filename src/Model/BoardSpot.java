@@ -1,17 +1,22 @@
 package Model;
 
-public class BoardSpot {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BoardSpot extends ArrayList<BoardSpot> {
     private boolean isHit;
     private boolean isFort;
     private boolean isShown;
 
-    private final int position;
+    private final int x_position;
+    private final int y_position;
 
-    public BoardSpot(int position) {
+    public BoardSpot(int position_x, int position_y) {
         isHit = false;
         isFort = false;
         isShown = false;
-        this.position = position;
+        this.x_position = position_x;
+        this.y_position = position_y;
     }
 
     public boolean isHit() {
@@ -38,7 +43,17 @@ public class BoardSpot {
         isShown = shown;
     }
 
-    public int getPosition() {
-        return position;
+
+    public int getY_position() {
+        return y_position;
+    }
+
+    public int getX_position() {
+        return x_position;
+    }
+
+    @Override
+    public List<BoardSpot> reversed() {
+        return super.reversed();
     }
 }

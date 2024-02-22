@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-
+        GameBoard board = new GameBoard();
+        UI userInterface = new UI();
+        userInterface.printBoard(board);
     }
 }

@@ -3,16 +3,21 @@ package Model;
 import java.util.ArrayList;
 
 public class GameBoard {
-    ArrayList<BoardSpot> boardSpots;
+    ArrayList<ArrayList<BoardSpot>> boardSpots;
 
     public GameBoard(){
         boardSpots = new ArrayList<>();
-        for(int i = 1; i < 101; i++){
-            boardSpots.add(new BoardSpot(i));
+        for(int x = 0; x < 10; x++){
+            ArrayList<BoardSpot> row = new ArrayList<>();
+            for(int y = 0; y < 10; y++){
+                row.add(new BoardSpot(x, y));
+            }
+            boardSpots.add(row);
         }
     }
 
-    public ArrayList<BoardSpot> getBoardSpots() {
+
+    public ArrayList<ArrayList<BoardSpot>> getBoardSpots() {
         return boardSpots;
     }
 }
