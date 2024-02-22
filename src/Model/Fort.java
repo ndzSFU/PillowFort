@@ -1,2 +1,4 @@
-package Model;public class Fort {
+package Model;
+
+public class Fort {
 }
