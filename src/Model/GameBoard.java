@@ -7,7 +7,10 @@ public class GameBoard {
 
     ArrayList<Fort> Forts;
 
-    public GameBoard(){
+    final int numOpponents;
+
+    public GameBoard(int numOpponents , String cheat){
+        this.numOpponents = numOpponents;
         boardSpots = new ArrayList<>();
         for(int x = 0; x < 10; x++){
             ArrayList<BoardSpot> row = new ArrayList<>();
@@ -16,6 +19,8 @@ public class GameBoard {
             }
             boardSpots.add(row);
         }
+
+        // Now we have number of opponents, and if we are cheating
     }
 
 

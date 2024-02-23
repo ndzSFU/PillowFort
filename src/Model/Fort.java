@@ -14,7 +14,11 @@ public class Fort {
         if(fortSpots.size() == 4 || fortSpots.size() == 5){
             return 20;
         } else if(fortSpots.size() == 3){
-            //
+            return 5;
+        } else if (fortSpots.size() == 2) {
+            return 2;
+        } else if (fortSpots.size() == 1) {
+            return 1;
         }
         return 0;
     }
