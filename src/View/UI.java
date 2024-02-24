@@ -8,30 +8,6 @@ import java.util.ArrayList;
 public class UI {
 
     UI(){}
-//    void printBoard(GameBoard board){
-//        ArrayList<ArrayList<BoardSpot>> spotArray = board.getBoardSpots();
-//
-//        System.out.print("  ");
-//        for (char ch = 'A'; ch <= 'J'; ch++) {
-//            System.out.print(ch + " ");
-//        }
-//        System.out.println();
-//
-//        for(int x = 0; x < 10; x++){
-//            if (spotArray.size() > x) {
-//                for(int y = 0; y < 10; y++){
-//                    if (spotArray.get(x).size() > y) {
-//                        BoardSpot spot = spotArray.get(x).get(y);
-//
-//                        if(!spot.isHit()){
-//                            System.out.print("~ ");
-//                        }
-//                    }
-//                }
-//            }
-//            System.out.println();
-//        }
-//    }
 
     void printBoard(GameBoard board){
         ArrayList<ArrayList<BoardSpot>> spotArray = board.getBoardSpots();
