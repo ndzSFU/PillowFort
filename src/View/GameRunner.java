@@ -10,7 +10,7 @@ public class GameRunner {
     private int oppPoints = 0;
     public void RunGame(GameBoard board){
         while(oppPoints < oppWinCondition && board.Forts.size() > 0){
-
+            String userSpot = UserInterface.getUserHit();
         }
     }
 }

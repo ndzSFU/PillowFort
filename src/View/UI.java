@@ -10,13 +10,44 @@ public class UI {
 
     UI(){}
 
-    public static String GetUserInput(){
+    public String GetUserInput(){
         Scanner StringScanner = new Scanner(System.in);
         return  StringScanner.nextLine();
     }
 
     public String getUserHit(){
-        return GetUserInput();
+        String userIn = GetUserInput();
+
+        char letterPosition = userIn.charAt(0);
+        String numPositionStr = userIn.substring(1);
+        int numPos = Integer.parseInt(numPositionStr);
+
+        while(true){
+            boolean invalidInput = false;
+            if(numPos > 10 || numPos < 1){
+                invalidInput = true;
+                System.out.println("Invalid Number Inputed for Shot position, please choose a number 1-10.");
+
+            }
+
+            if(letterPosition < 'A' || letterPosition > 'J'){
+                invalidInput = true;
+                System.out.println("Invalid letter Inputed for Shot position, please choose a letter A-J.");
+
+            }
+
+            if(invalidInput){
+                userIn = GetUserInput();
+                letterPosition = userIn.charAt(0);
+                numPositionStr = userIn.substring(1);
+                numPos = Integer.parseInt(numPositionStr);
+            } else{
+                break;
+            }
+
+        }
+
+        return userIn;
     }
 
     public void printBoard(GameBoard board){
