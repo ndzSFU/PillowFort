@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class GameBoard {
     ArrayList<ArrayList<BoardSpot>> boardSpots;
 
-    ArrayList<Fort> Forts;
+    public ArrayList<Fort> Forts;
 
     final int numOpponents;
 
     public GameBoard(int numOpponents , String cheat){
         this.numOpponents = numOpponents;
         boardSpots = new ArrayList<>();
-        for(int x = 0; x < 10; x++){
+        for(int x = 0; x < 12; x++){
             ArrayList<BoardSpot> row = new ArrayList<>();
-            for(int y = 0; y < 10; y++){
+            for(int y = 0; y < 12; y++){
                 row.add(new BoardSpot(x, y));
             }
             boardSpots.add(row);

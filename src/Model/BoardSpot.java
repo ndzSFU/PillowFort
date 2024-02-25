@@ -8,6 +8,8 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     private boolean isFort;
     private boolean isShown;
 
+    private boolean isValid;
+
     private final int x_position;
     private final int y_position;
 
@@ -17,6 +19,11 @@ public class BoardSpot extends ArrayList<BoardSpot> {
         isShown = false;
         this.x_position = position_x;
         this.y_position = position_y;
+        if(position_x == 0 || position_x == 11 || position_y == 0 || position_y == 11){
+            this.isValid = false;
+        } else{
+            this.isValid = true;
+        }
     }
 
     public boolean isHit() {
@@ -55,5 +62,9 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     @Override
     public List<BoardSpot> reversed() {
         return super.reversed();
+    }
+
+    public boolean isValid() {
+        return isValid;
     }
 }
