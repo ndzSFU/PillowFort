@@ -18,6 +18,8 @@ public class Main {
 
         GameBoard board = new GameBoard(numOpponents, cheating);
         UI userInterface = new UI();
+        GameRunner Game = new GameRunner();
         userInterface.printBoard(board);
+        Game.RunGame(board);
     }
 }
