@@ -38,7 +38,7 @@ public class UI {
                 BoardSpot spot = spotArray.get(x).get(y - 'A');
 
                 if(!spot.isValid()){
-                    continue;
+
                 } else if (!spot.isHit()){
                     System.out.print("~ ");
                 } else if (spot.isHit() && spot.isFort()) {
