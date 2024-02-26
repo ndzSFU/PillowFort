@@ -15,36 +15,44 @@ public class UI {
         return  StringScanner.nextLine();
     }
 
+    private static boolean isValidLetter(char letter) {
+        return letter >= 'A' && letter <= 'J';
+    }
+
+    private static boolean isValidNumber(int number) {
+        return number >= 1 && number <= 10;
+    }
+
+    private static final int minUserInput = 2;
+    private static final int maxUserInput = 3;
+    private static boolean isValidInput(String userInput) {
+
+        if (userInput.length() < minUserInput || userInput.length() > maxUserInput) {
+            return false;
+        }
+
+        char letterPosition = userInput.charAt(0);
+        String numPositionStr = userInput.substring(1);
+
+        if (!isValidLetter(letterPosition)) {
+            return false;
+        }
+
+        try {
+            int numPos = Integer.parseInt(numPositionStr);
+            return isValidNumber(numPos);
+        } catch (NumberFormatException e) {
+            return false; // Invalid number input
+        }
+    }
+
     public String getUserHit(){
+        System.out.print("Enter your move: ");
         String userIn = GetUserInput();
 
-        char letterPosition = userIn.charAt(0);
-        String numPositionStr = userIn.substring(1);
-        int numPos = Integer.parseInt(numPositionStr);
-
-        while(true){
-            boolean invalidInput = false;
-            if(numPos > 10 || numPos < 1){
-                invalidInput = true;
-                System.out.println("Invalid Number Inputed for Shot position, please choose a number 1-10.");
-
-            }
-
-            if(letterPosition < 'A' || letterPosition > 'J'){
-                invalidInput = true;
-                System.out.println("Invalid letter Inputed for Shot position, please choose a letter A-J.");
-
-            }
-
-            if(invalidInput){
-                userIn = GetUserInput();
-                letterPosition = userIn.charAt(0);
-                numPositionStr = userIn.substring(1);
-                numPos = Integer.parseInt(numPositionStr);
-            } else{
-                break;
-            }
-
+        while (!isValidInput(userIn)) {
+            System.out.println("Invalid input. Please enter a valid move (e.g., A5, J10): ");
+            userIn = GetUserInput();
         }
 
         return userIn;

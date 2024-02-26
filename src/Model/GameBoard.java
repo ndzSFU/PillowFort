@@ -22,6 +22,8 @@ public class GameBoard {
         }
 
         // Now we have number of opponents, and if we are cheating
+
+
     }
 
     public void generateFort() { // Main loop for fort generation
