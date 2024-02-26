@@ -61,11 +61,11 @@ public class GameBoard {
         return yPos;
     }
 
-    public void HitBoard(String userIn){
+    private BoardSpot GetInputtedBoardSpot(String userIn){
         int xPos = Integer.parseInt(userIn.substring(1));
         int yPos = convertLetterToNum(userIn.charAt(0));
 
-        BoardSpot chosenSpot = boardSpots.get(xPos).get(yPos);
+        return boardSpots.get(xPos).get(yPos);
     }
 
     public void generateForts() { // Main loop for fort generation
