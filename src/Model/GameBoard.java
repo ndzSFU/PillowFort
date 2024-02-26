@@ -22,8 +22,50 @@ public class GameBoard {
         }
 
         // Now we have number of opponents, and if we are cheating
+    }
 
+    int convertLetterToNum(char letter){
+        int yPos = -1;
+        switch(letter){
+            case 'A':
+                yPos = 1;
+                break;
+            case 'B':
+                yPos = 2;
+                break;
+            case 'C':
+                yPos = 3;
+                break;
+            case 'D':
+                yPos = 4;
+                break;
+            case 'E':
+                yPos = 5;
+                break;
+            case 'F':
+                yPos = 6;
+                break;
+            case 'G':
+                yPos = 7;
+                break;
+            case 'H':
+                yPos = 8;
+                break;
+            case 'I':
+                yPos = 9;
+                break;
+            case 'J':
+                yPos = 10;
+                break;
+        }
+        return yPos;
+    }
 
+    public void HitBoard(String userIn){
+        int xPos = Integer.parseInt(userIn.substring(1));
+        int yPos = convertLetterToNum(userIn.charAt(0));
+
+        BoardSpot chosenSpot = boardSpots.get(xPos).get(yPos);
     }
 
     public void generateForts() { // Main loop for fort generation
