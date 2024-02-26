@@ -26,7 +26,7 @@ public class GameBoard {
 
     }
 
-    public void generateFort() { // Main loop for fort generation
+    public void generateForts() { // Main loop for fort generation
         Random randomNum = new Random();
         int randRow = randomNum.nextInt(12);
         int randCol = randomNum.nextInt(12);
@@ -38,24 +38,55 @@ public class GameBoard {
             spotToCheck = boardSpots.get(randRow).get(randCol);
         }
         BoardSpot startPoint = spotToCheck;
-        checkAbove(startPoint);
-        checkBelow(startPoint);
-        checkLeft(startPoint);
-        checkRight(startPoint);
-        // Call function to determine other possible fort
+        ArrayList<BoardSpot> possibleFortSpots = new ArrayList<>();
+        possibleFortSpots.add(startPoint);
+        int currentFortSize = 0;
+
+        while (currentFortSize != 5) {
+            int randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
+            startPoint = possibleFortSpots.get(randomPossibleFortSpotIndex);
+
+            if (isAboveValid(startPoint)) {
+                possibleFortSpots.add(boardSpots.get(randRow - 1).get(randCol));
+            }
+            if (isBelowValid(startPoint)) {
+                possibleFortSpots.add(boardSpots.get(randRow + 1).get(randCol));
+            }
+            if (isLeftValid(startPoint)) {
+                possibleFortSpots.add(boardSpots.get(randRow).get(randCol - 1));
+            }
+            if (isRightValid(startPoint)) {
+                possibleFortSpots.add(boardSpots.get(randRow + 1).get(randCol + 1));
+            }
+
+            randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
+
+            currentFortSize++;
+        }
+
+
+
 
     }
 
-    private void checkRight(BoardSpot startPoint) {
+    // These check if the spot next to the starting point are possible fort spots,
+    // if so, they are added to an array which we will randomly pick a game spot
+    // to make a part of this fort. Also checks if the spot in inside or outside the
+    // game board.
+    private boolean isRightValid(BoardSpot startPoint) {
+        return true;
     }
 
-    private void checkLeft(BoardSpot startPoint) {
+    private boolean isLeftValid(BoardSpot startPoint) {
+        return true;
     }
 
-    private void checkBelow(BoardSpot startPoint) {
+    private boolean isBelowValid(BoardSpot startPoint) {
+        return true;
     }
 
-    private void checkAbove(BoardSpot startPoint) {
+    private boolean isAboveValid(BoardSpot startPoint) {
+        return true;
     }
 
 
