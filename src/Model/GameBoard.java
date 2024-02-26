@@ -32,7 +32,8 @@ public class GameBoard {
         int randCol = randomNum.nextInt(12);
         // Spot we are checking
         BoardSpot spotToCheck = boardSpots.get(randRow).get(randCol);
-        while (!spotToCheck.isValid()) {
+        // Is a valid game spot and not in a fort already
+        while (!spotToCheck.isValid() && !spotToCheck.isFort()) {
             randRow = randomNum.nextInt(12);
             randCol = randomNum.nextInt(12);
             spotToCheck = boardSpots.get(randRow).get(randCol);
@@ -43,9 +44,14 @@ public class GameBoard {
         int currentFortSize = 0;
 
         while (currentFortSize != 5) {
+            // Picks a random possibleFort spot from the ArrayList of
+            // Board Spots that are available to be a fort spot.
             int randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
             startPoint = possibleFortSpots.get(randomPossibleFortSpotIndex);
 
+
+            // Checks if all spots around the current spot can be a fort spot, and if so,
+            // adds it to the list of possible spots.
             if (isAboveValid(startPoint)) {
                 possibleFortSpots.add(boardSpots.get(randRow - 1).get(randCol));
             }
@@ -59,7 +65,11 @@ public class GameBoard {
                 possibleFortSpots.add(boardSpots.get(randRow + 1).get(randCol + 1));
             }
 
-            randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
+            possibleFortSpots.remove(randomPossibleFortSpotIndex);
+
+            if (possibleFortSpots.isEmpty()) {
+                break;
+            }
 
             currentFortSize++;
         }
