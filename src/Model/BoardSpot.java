@@ -18,13 +18,15 @@ public class BoardSpot extends ArrayList<BoardSpot> {
         this.isHit = false;
         this.isFort = false;
         this.isShown = false;
-        this.isPossibleFort = false;
+
         this.x_position = position_x;
         this.y_position = position_y;
         if(position_x == 0 || position_x == 11 || position_y == 0 || position_y == 11){
             this.isValid = false;
+            this.isPossibleFort = false;
         } else{
             this.isValid = true;
+            this.isPossibleFort = true;
         }
     }
 

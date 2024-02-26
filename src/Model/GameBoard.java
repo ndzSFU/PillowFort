@@ -12,16 +12,18 @@ public class GameBoard {
 
     public GameBoard(int numOpponents, String cheat){
         this.numOpponents = numOpponents;
-        boardSpots = new ArrayList<>();
+        this.boardSpots = new ArrayList<>();
         for(int x = 0; x < 12; x++){
             ArrayList<BoardSpot> row = new ArrayList<>();
             for(int y = 0; y < 12; y++){
                 row.add(new BoardSpot(x, y));
             }
-            boardSpots.add(row);
+            this.boardSpots.add(row);
         }
 
         // Now we have number of opponents, and if we are cheating
+        generateForts();
+        generateForts();
     }
 
     int convertLetterToNum(char letter){
@@ -86,44 +88,54 @@ public class GameBoard {
             randCol = randomNum.nextInt(12);
             spotToCheck = boardSpots.get(randRow).get(randCol);
         }
+        // Two arrays, one for the actual fort, and one for spots to add
         BoardSpot startPoint = spotToCheck;
         ArrayList<BoardSpot> possibleFortSpots = new ArrayList<>();
-        possibleFortSpots.add(startPoint);
-        int currentFortSize = 0;
+        ArrayList<BoardSpot> selectedFortSpots = new ArrayList<>();
 
-        while (currentFortSize != 5) {
+        startPoint.setPossibleFort(false);
+        possibleFortSpots.add(startPoint);
+
+        while (selectedFortSpots.size() != 5) {
             // Picks a random possibleFort spot from the ArrayList of
             // Board Spots that are available to be a fort spot.
             int randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
             startPoint = possibleFortSpots.get(randomPossibleFortSpotIndex);
 
+            selectedFortSpots.add(startPoint);
+            possibleFortSpots.remove(randomPossibleFortSpotIndex);
 
             // Checks if all spots around the current spot can be a fort spot, and if so,
             // adds it to the list of possible spots.
             if (isAboveValid(startPoint)) {
-                possibleFortSpots.add(boardSpots.get(randRow - 1).get(randCol));
+                possibleFortSpots.add(getBoardSpots().get(randRow - 1).get(randCol));
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isBelowValid(startPoint)) {
-                possibleFortSpots.add(boardSpots.get(randRow + 1).get(randCol));
+                possibleFortSpots.add(getBoardSpots().get(randRow + 1).get(randCol));
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isLeftValid(startPoint)) {
-                possibleFortSpots.add(boardSpots.get(randRow).get(randCol - 1));
+                possibleFortSpots.add(getBoardSpots().get(randRow).get(randCol - 1));
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isRightValid(startPoint)) {
-                possibleFortSpots.add(boardSpots.get(randRow + 1).get(randCol + 1));
+                possibleFortSpots.add(getBoardSpots().get(randRow).get(randCol + 1));
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
 
-            possibleFortSpots.remove(randomPossibleFortSpotIndex);
 
             if (possibleFortSpots.isEmpty()) {
                 break;
             }
-
-            currentFortSize++;
         }
 
-
-
+        // Set game board spots to be a fort
+        for (BoardSpot b : selectedFortSpots) {
+            int x_pos = b.getX_position();
+            int y_pos = b.getY_position();
+            getBoardSpots().get(x_pos).get(y_pos).setFort(true);
+        }
 
     }
 
@@ -132,19 +144,31 @@ public class GameBoard {
     // to make a part of this fort. Also checks if the spot in inside or outside the
     // game board.
     private boolean isRightValid(BoardSpot startPoint) {
-        return true;
+        BoardSpot spotToTheRight = getBoardSpots()
+                .get(startPoint.getX_position() )
+                .get(startPoint.getY_position() + 1);
+        return spotToTheRight.isValid() && spotToTheRight.isPossibleFort();
     }
 
     private boolean isLeftValid(BoardSpot startPoint) {
-        return true;
+        BoardSpot spotToTheLeft = getBoardSpots()
+                .get(startPoint.getX_position())
+                .get(startPoint.getY_position() - 1);
+        return spotToTheLeft.isValid() && spotToTheLeft.isPossibleFort();
     }
 
     private boolean isBelowValid(BoardSpot startPoint) {
-        return true;
+        BoardSpot spotBelow = getBoardSpots()
+                .get(startPoint.getX_position() + 1)
+                .get(startPoint.getY_position());
+        return spotBelow.isValid() && spotBelow.isPossibleFort();
     }
 
     private boolean isAboveValid(BoardSpot startPoint) {
-        return true;
+        BoardSpot spotAbove = getBoardSpots()
+                .get(startPoint.getX_position() - 1)
+                .get(startPoint.getY_position());
+        return spotAbove.isValid() && spotAbove.isPossibleFort();
     }
 
 
