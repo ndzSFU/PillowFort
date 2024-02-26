@@ -68,6 +68,12 @@ public class GameBoard {
         return boardSpots.get(xPos).get(yPos);
     }
 
+    public void HitBoard(String userIn){
+        BoardSpot chosenSpot = GetInputtedBoardSpot(userIn);
+
+        chosenSpot.Hit();
+    }
+
     public void generateForts() { // Main loop for fort generation
         Random randomNum = new Random();
         int randRow = randomNum.nextInt(12);

@@ -32,8 +32,8 @@ public class BoardSpot extends ArrayList<BoardSpot> {
         return isHit;
     }
 
-    public void setHit(boolean hit) {
-        isHit = hit;
+    public void Hit() {
+        isHit = true;
     }
 
     public boolean isFort() {

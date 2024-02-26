@@ -11,6 +11,7 @@ public class GameRunner {
     public void RunGame(GameBoard board){
         while(oppPoints < oppWinCondition){
             String userSpot = userInterface.getUserHit();
+            board.HitBoard(userSpot);
             userInterface.printBoard(board);
         }
     }
