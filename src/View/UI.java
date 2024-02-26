@@ -42,7 +42,7 @@ public class UI {
             int numPos = Integer.parseInt(numPositionStr);
             return isValidNumber(numPos);
         } catch (NumberFormatException e) {
-            return false; // Invalid number input
+            return false;
         }
     }
 
