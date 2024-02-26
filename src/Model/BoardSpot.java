@@ -7,6 +7,7 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     private boolean isHit;
     private boolean isFort;
     private boolean isShown;
+    private boolean isPossibleFort;
 
     private boolean isValid;
 
@@ -14,9 +15,10 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     private final int y_position;
 
     public BoardSpot(int position_x, int position_y) {
-        isHit = false;
-        isFort = false;
-        isShown = false;
+        this.isHit = false;
+        this.isFort = false;
+        this.isShown = false;
+        this.isPossibleFort = false;
         this.x_position = position_x;
         this.y_position = position_y;
         if(position_x == 0 || position_x == 11 || position_y == 0 || position_y == 11){
@@ -66,5 +68,13 @@ public class BoardSpot extends ArrayList<BoardSpot> {
 
     public boolean isValid() {
         return isValid;
+    }
+
+    public boolean isPossibleFort() {
+        return isPossibleFort;
+    }
+
+    public void setPossibleFort(boolean possibleFort) {
+        isPossibleFort = possibleFort;
     }
 }
