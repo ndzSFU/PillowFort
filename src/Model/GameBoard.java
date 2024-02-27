@@ -118,19 +118,19 @@ public class GameBoard {
             // adds it to the list of possible spots.
             if (isAboveValid(randRowStart, randColStart)) {
                 possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart - 1));
-                possibleFortSpots.get(possibleFortSpots.size() - 1).setPossibleFort(false);
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isBelowValid(randRowStart, randColStart)) {
                 possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart + 1));
-                possibleFortSpots.get(possibleFortSpots.size() - 1).setPossibleFort(false);
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isLeftValid(randRowStart, randColStart)) {
                 possibleFortSpots.add(getBoardSpots().get(randColStart - 1).get(randRowStart));
-                possibleFortSpots.get(possibleFortSpots.size() - 1).setPossibleFort(false);
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
             if (isRightValid(randRowStart, randColStart)) {
                 possibleFortSpots.add(getBoardSpots().get(randColStart + 1).get(randRowStart));
-                possibleFortSpots.get(possibleFortSpots.size() - 1).setPossibleFort(false);
+                possibleFortSpots.getLast().setPossibleFort(false);
             }
 
             // No possible fort can be made
@@ -167,8 +167,6 @@ public class GameBoard {
         BoardSpot spotAbove = getBoardSpots().get(randCol).get(randRow - 1);
         return spotAbove.isValid() && spotAbove.isPossibleFort();
     }
-
-
 
     public ArrayList<ArrayList<BoardSpot>> getBoardSpots() {
         return boardSpots;
