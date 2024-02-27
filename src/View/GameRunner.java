@@ -1,5 +1,6 @@
 package View;
 
+import Model.BoardSpot;
 import Model.GameBoard;
 
 public class GameRunner {
@@ -11,7 +12,13 @@ public class GameRunner {
     public void RunGame(GameBoard board){
         while(oppPoints < oppWinCondition){
             String userSpot = userInterface.getUserHit();
-            board.HitBoard(userSpot);
+            BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
+            while(chosenSpot.isHit()){
+                System.out.println("Spot already hit.");
+                userSpot = userInterface.getUserHit();
+                chosenSpot = board.GetInputtedBoardSpot(userSpot);
+            }
+            chosenSpot.Hit();
             userInterface.printBoard(board);
         }
     }

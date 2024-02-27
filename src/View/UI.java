@@ -51,7 +51,7 @@ public class UI {
         String userIn = GetUserInput();
 
         while (!isValidInput(userIn)) {
-            System.out.println("Invalid input. Please enter a letter A-J and a number 1-10 (e.g., A5, J10): ");
+            System.out.print("Invalid input. Please enter a letter A-J and a number 1-10 (e.g., A5, J10): ");
             userIn = GetUserInput();
         }
 
