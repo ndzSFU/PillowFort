@@ -21,12 +21,22 @@ public class GameBoard {
             this.boardSpots.add(row);
         }
 
+        generateAllForts(numOpponents);
+
+    }
+
+    private void generateAllForts(int numOpponents) {
+        boolean succesfullyMadeFort = false;
         // Now we have number of opponents, and if we are cheating
-        generateForts();
-        generateForts();
-        generateForts();
-        generateForts();
-        generateForts();
+        for (int fortsMade = 0; fortsMade < numOpponents; fortsMade++) {
+
+            // Failed to generate fort
+            succesfullyMadeFort = generateFortAndReturnStatus();
+            while(!succesfullyMadeFort) {
+                succesfullyMadeFort = generateFortAndReturnStatus();
+            }
+        }
+
     }
 
     int convertLetterToNum(char letter){
@@ -73,7 +83,7 @@ public class GameBoard {
         return boardSpots.get(xPos).get(yPos);
     }
 
-    public void generateForts() { // Main loop for fort generation
+    public boolean generateFortAndReturnStatus() { // Main loop for fort generation
         Random randomNum = new Random();
         int randRow = randomNum.nextInt(12);
         int randCol = randomNum.nextInt(12);
@@ -133,12 +143,18 @@ public class GameBoard {
             }
         }
 
+        if (selectedFortSpots.size() != 5) {
+            return false;
+        }
+
         // Set game board spots to be a fort
         for (BoardSpot b : selectedFortSpots) {
             int x_pos = b.getX_position();
             int y_pos = b.getY_position();
             getBoardSpots().get(x_pos).get(y_pos).setFort(true);
-        }
+         }
+
+        return true;
     }
 
     // Updated methods to include row and column parameters
