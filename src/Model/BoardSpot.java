@@ -14,6 +14,8 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     private final int x_position;
     private final int y_position;
 
+    private char fortLabel;
+
     public BoardSpot(int position_x, int position_y) {
         this.isHit = false;
         this.isFort = false;
@@ -78,5 +80,13 @@ public class BoardSpot extends ArrayList<BoardSpot> {
 
     public void setPossibleFort(boolean possibleFort) {
         isPossibleFort = possibleFort;
+    }
+
+    public char getFortLabel() {
+        return fortLabel;
+    }
+
+    public void setFortLabel(char fortLabel) {
+        this.fortLabel = fortLabel;
     }
 }

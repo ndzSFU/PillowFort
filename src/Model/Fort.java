@@ -3,23 +3,42 @@ package Model;
 import java.util.ArrayList;
 
 public class Fort {
+
+    private int damageTaken = 0;
     ArrayList<BoardSpot> fortSpots;
+    private char fortLabel;
+
+    Fort(char fortName){
+        this.fortLabel = fortName;
+    }
 
     //Not quite sure what to put in this class yet
-    Fort(ArrayList<BoardSpot> selectedSpots){
-        fortSpots = selectedSpots;
+    public void copySpotList(ArrayList<BoardSpot> spots){
+        this.fortSpots = spots;
+    }
+
+    public void takeDamage(){
+        damageTaken++;
     }
 
     public int dealDamage(){
-        if(fortSpots.size() == 4 || fortSpots.size() == 5){
+        if(damageTaken == 1 || damageTaken == 0){
             return 20;
-        } else if(fortSpots.size() == 3){
+        } else if(damageTaken == 2){
             return 5;
-        } else if (fortSpots.size() == 2) {
+        } else if (damageTaken == 3) {
             return 2;
-        } else if (fortSpots.size() == 1) {
+        } else if (damageTaken == 4) {
             return 1;
         }
         return 0;
+    }
+
+    public char getFortLabel() {
+        return fortLabel;
+    }
+
+    public int getDamageTaken(){
+        return damageTaken;
     }
 }

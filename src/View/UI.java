@@ -58,7 +58,33 @@ public class UI {
         return userIn;
     }
 
-    public void printBoard(GameBoard board){
+    private void printRegularSpot(BoardSpot spot){
+        if(!spot.isValid()){
+
+        } else if (!spot.isHit()){
+            System.out.print("~ ");
+        }
+        else if (spot.isHit() && spot.isFort()) {
+            System.out.print("X ");
+        } else{
+            System.out.print("  ");
+        }
+    }
+
+    private void printEndOfGameSpot(BoardSpot spot){
+        if(!spot.isValid()){
+
+        } else if (!spot.isFort()){
+            System.out.print(". ");
+        } else if (spot.isHit() && spot.isFort()){
+            System.out.print(spot.getFortLabel()+ " ");
+        }else if(!spot.isHit() && spot.isFort()){
+            char upperCaseLabel = Character.toUpperCase(spot.getFortLabel());
+            System.out.print(upperCaseLabel + " ");
+        }
+    }
+
+    public void printBoard(GameBoard board, boolean gameDone){
         ArrayList<ArrayList<BoardSpot>> spotArray = board.getBoardSpots();
 
         System.out.print("  ");
@@ -76,19 +102,17 @@ public class UI {
                 //Need to do y - 'A' to get to down to convert back to normal 0-9
                 BoardSpot spot = spotArray.get(x).get(y - 'A');
 
-                if(!spot.isValid()){
-
-                } else if (!spot.isHit()){
-                    System.out.print("~ ");
-                } else if (spot.isHit() && spot.isFort()) {
-                    System.out.print("X ");
-                } else{
-                    System.out.print("  ");
+                if(!gameDone){
+                    printRegularSpot(spot);
+                }else{
+                    printEndOfGameSpot(spot);
                 }
+
+
+
             }
             System.out.println();
         }
     }
-
 
 }

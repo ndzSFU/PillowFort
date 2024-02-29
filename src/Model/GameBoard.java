@@ -3,10 +3,14 @@ package Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
 public class GameBoard {
+
+    final int MAX_CELLS_PER_FORT = 5;
     ArrayList<ArrayList<BoardSpot>> boardSpots;
 
-    public ArrayList<Fort> Forts;
+    public ArrayList<Fort> Forts = new ArrayList<>();
 
     final int numOpponents;
 
@@ -25,55 +29,46 @@ public class GameBoard {
 
     }
 
+    public static char convertNumberToChar(int number) {
+
+        // Convert the number to a character using ASCII values
+        return (char) ('a' + number);
+    }
+
     private void generateAllForts(int numOpponents) {
         boolean succesfullyMadeFort = false;
         // Now we have number of opponents, and if we are cheating
         for (int fortsMade = 0; fortsMade < numOpponents; fortsMade++) {
 
+            char fortName = convertNumberToChar(fortsMade);
+            Fort newFort = new Fort(fortName);
+
             // Failed to generate fort
-            succesfullyMadeFort = generateFortAndReturnStatus();
+            succesfullyMadeFort = generateFortAndReturnStatus(newFort, fortName);
             while(!succesfullyMadeFort) {
-                succesfullyMadeFort = generateFortAndReturnStatus();
+                succesfullyMadeFort = generateFortAndReturnStatus(newFort, fortName);
             }
+
+            Forts.add(newFort);
+
         }
 
     }
 
     int convertLetterToNum(char letter){
-        int yPos = -1;
-        switch(letter){
-            case 'A':
-                yPos = 1;
-                break;
-            case 'B':
-                yPos = 2;
-                break;
-            case 'C':
-                yPos = 3;
-                break;
-            case 'D':
-                yPos = 4;
-                break;
-            case 'E':
-                yPos = 5;
-                break;
-            case 'F':
-                yPos = 6;
-                break;
-            case 'G':
-                yPos = 7;
-                break;
-            case 'H':
-                yPos = 8;
-                break;
-            case 'I':
-                yPos = 9;
-                break;
-            case 'J':
-                yPos = 10;
-                break;
-        }
-        return yPos;
+        return switch (letter) {
+            case 'A' -> 1;
+            case 'B' -> 2;
+            case 'C' -> 3;
+            case 'D' -> 4;
+            case 'E' -> 5;
+            case 'F' -> 6;
+            case 'G' -> 7;
+            case 'H' -> 8;
+            case 'I' -> 9;
+            case 'J' -> 10;
+            default -> -1;
+        };
     }
 
     public BoardSpot GetInputtedBoardSpot(String userIn){
@@ -83,7 +78,7 @@ public class GameBoard {
         return boardSpots.get(xPos).get(yPos);
     }
 
-    public boolean generateFortAndReturnStatus() { // Main loop for fort generation
+    public boolean generateFortAndReturnStatus(Fort newFort, char fortName) { // Main loop for fort generation
         Random randomNum = new Random();
         int randRow = randomNum.nextInt(12);
         int randCol = randomNum.nextInt(12);
@@ -152,7 +147,10 @@ public class GameBoard {
             int x_pos = b.getX_position();
             int y_pos = b.getY_position();
             getBoardSpots().get(x_pos).get(y_pos).setFort(true);
-         }
+            b.setFortLabel(fortName);
+        }
+
+        newFort.copySpotList(selectedFortSpots);
 
         return true;
     }
@@ -180,5 +178,28 @@ public class GameBoard {
 
     public ArrayList<ArrayList<BoardSpot>> getBoardSpots() {
         return boardSpots;
+    }
+
+    public ArrayList<Fort> getForts(){
+        return Forts;
+    }
+
+    public Fort getFort(char targetFort){
+        for(Fort f: Forts){
+            if(f.getFortLabel() == targetFort){
+                return f;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean allFortsDamaged(){
+        int numDamagedCells = 0;
+        for(Fort f: Forts){
+            numDamagedCells+=f.getDamageTaken();
+        }
+
+        return numDamagedCells == Forts.size() * MAX_CELLS_PER_FORT;
     }
 }
