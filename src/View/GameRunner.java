@@ -67,6 +67,8 @@ public class GameRunner {
             userInterface.printBoard(board, gameDone);
         }
 
+        System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
+
         if(board.allFortsDamaged()){
             System.out.println("Congratulations! You won!");
         } else{
@@ -74,5 +76,6 @@ public class GameRunner {
         }
         gameDone = true;
         userInterface.printBoard(board, gameDone);
+        System.out.println("Lower case fort letters are where you shot.");
     }
 }
