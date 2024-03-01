@@ -8,6 +8,8 @@ import java.util.Random;
 public class GameBoard {
 
     final int MAX_CELLS_PER_FORT = 5;
+    final int TOTAL_ROW_COUNT = 12;
+    final int TOTAL_COLUMN_COUNT = 12;
     ArrayList<ArrayList<BoardSpot>> boardSpots;
 
     public ArrayList<Fort> Forts = new ArrayList<>();
@@ -148,13 +150,13 @@ public class GameBoard {
     }
 
     private BoardSpot getValidSpotToCheck(Random randomNum) {
-        int randRow = randomNum.nextInt(12);
-        int randCol = randomNum.nextInt(12);
+        int randRow = randomNum.nextInt(TOTAL_ROW_COUNT);
+        int randCol = randomNum.nextInt(TOTAL_COLUMN_COUNT);
         BoardSpot spotToCheck = getBoardSpots().get(randCol).get(randRow);
 
         while (!spotToCheck.isValid() || spotToCheck.isFort()) {
-            randRow = randomNum.nextInt(12);
-            randCol = randomNum.nextInt(12);
+            randRow = randomNum.nextInt(TOTAL_ROW_COUNT);
+            randCol = randomNum.nextInt(TOTAL_COLUMN_COUNT);
             spotToCheck = getBoardSpots().get(randCol).get(randRow);
         }
 
