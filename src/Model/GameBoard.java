@@ -24,6 +24,7 @@ public class GameBoard {
             for(int y = 0; y < 12; y++){
                 row.add(new BoardSpot(x, y));
             }
+
             this.boardSpots.add(row);
         }
 
