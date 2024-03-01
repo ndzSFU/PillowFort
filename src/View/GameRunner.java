@@ -51,19 +51,16 @@ public class GameRunner {
         userInterface.printBoard(board, gameDone);
 
         while(oppPoints < oppWinCondition && !board.allFortsDamaged()){
-
             System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
 
             String userSpot = userInterface.getUserHit();
             BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
-
 
             while(chosenSpot.isHit()){
                 System.out.println("Spot already hit.");
                 userSpot = userInterface.getUserHit();
                 chosenSpot = board.GetInputtedBoardSpot(userSpot);
             }
-
             chosenSpot.Hit();
 
             if(chosenSpot.isFort()){
@@ -74,13 +71,10 @@ public class GameRunner {
             }else{
                 System.out.println("Miss.");
             }
-
             oppPoints+=getDamageFromForts(board);
 
             userInterface.printBoard(board, gameDone);
         }
         printEndGameStats(board);
     }
-
-
 }
