@@ -97,36 +97,10 @@ public class GameBoard {
         startPoint.setPossibleFort(false);
         possibleFortSpots.add(startPoint);
 
-        while (selectedFortSpots.size() != 5) {
-            // Picks a random possibleFort spot from the ArrayList of
-            // Board Spots that are available to be a fort spot.
-            int randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
-            startPoint = possibleFortSpots.get(randomPossibleFortSpotIndex);
-
-            selectedFortSpots.add(startPoint);
-            possibleFortSpots.remove(randomPossibleFortSpotIndex);
-
-            int randRowStart = startPoint.getY_position();
-            int randColStart = startPoint.getX_position();
-
-            // Checks if all spots around the current spot can be a fort spot, and if so,
-            // adds it to the list of possible spots.
-            if (isAboveValid(randRowStart, randColStart)) {
-                possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart - 1));
-                possibleFortSpots.getLast().setPossibleFort(false);
-            }
-            if (isBelowValid(randRowStart, randColStart)) {
-                possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart + 1));
-                possibleFortSpots.getLast().setPossibleFort(false);
-            }
-            if (isLeftValid(randRowStart, randColStart)) {
-                possibleFortSpots.add(getBoardSpots().get(randColStart - 1).get(randRowStart));
-                possibleFortSpots.getLast().setPossibleFort(false);
-            }
-            if (isRightValid(randRowStart, randColStart)) {
-                possibleFortSpots.add(getBoardSpots().get(randColStart + 1).get(randRowStart));
-                possibleFortSpots.getLast().setPossibleFort(false);
-            }
+        while (selectedFortSpots.size() != MAX_CELLS_PER_FORT) {
+            // Find valid possible fort spots, and add them to array of possible spots
+            // Picks one at random to add to the actual fort.
+            pickRandomValidFortSpots(startPoint, possibleFortSpots, selectedFortSpots, randomNum);
 
             // No possible fort can be made
             if (possibleFortSpots.isEmpty()) {
@@ -147,6 +121,39 @@ public class GameBoard {
         }
 //        newFort.copySpotList(selectedFortSpots);
         return true;
+    }
+
+    private void pickRandomValidFortSpots(BoardSpot startPoint,
+                                          ArrayList<BoardSpot> possibleFortSpots,
+                                          ArrayList<BoardSpot> selectedFortSpots,
+                                          Random randomNum) {
+        int randomPossibleFortSpotIndex = randomNum.nextInt(possibleFortSpots.size());
+        startPoint = possibleFortSpots.get(randomPossibleFortSpotIndex);
+
+        selectedFortSpots.add(startPoint);
+        possibleFortSpots.remove(randomPossibleFortSpotIndex);
+
+        int randRowStart = startPoint.getY_position();
+        int randColStart = startPoint.getX_position();
+
+        // Checks if all spots around the current spot can be a fort spot, and if so,
+        // adds it to the list of possible spots.
+        if (isAboveValid(randRowStart, randColStart)) {
+            possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart - 1));
+            possibleFortSpots.getLast().setPossibleFort(false);
+        }
+        if (isBelowValid(randRowStart, randColStart)) {
+            possibleFortSpots.add(getBoardSpots().get(randColStart).get(randRowStart + 1));
+            possibleFortSpots.getLast().setPossibleFort(false);
+        }
+        if (isLeftValid(randRowStart, randColStart)) {
+            possibleFortSpots.add(getBoardSpots().get(randColStart - 1).get(randRowStart));
+            possibleFortSpots.getLast().setPossibleFort(false);
+        }
+        if (isRightValid(randRowStart, randColStart)) {
+            possibleFortSpots.add(getBoardSpots().get(randColStart + 1).get(randRowStart));
+            possibleFortSpots.getLast().setPossibleFort(false);
+        }
     }
 
     private BoardSpot getValidSpotToCheck(Random randomNum) {
