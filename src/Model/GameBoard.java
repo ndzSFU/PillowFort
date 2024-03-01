@@ -16,7 +16,7 @@ public class GameBoard {
 
     final int numOpponents;
 
-    public GameBoard(int numOpponents, String cheat){
+    public GameBoard(int numOpponents){
         this.numOpponents = numOpponents;
         this.boardSpots = new ArrayList<>();
         for(int x = 0; x < 12; x++){

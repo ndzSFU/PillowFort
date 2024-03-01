@@ -23,7 +23,7 @@ public class Main {
             cheating = args[1];
         }
 
-        GameBoard board = new GameBoard(numOpponents, cheating);
+        GameBoard board = new GameBoard(numOpponents);
         UI userInterface = new UI();
         GameRunner Game = new GameRunner();
         Game.RunGame(board, cheating);
