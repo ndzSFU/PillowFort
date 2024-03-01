@@ -62,7 +62,7 @@ public class GameBoard {
 
     }
 
-    int convertLetterToNum(char letter){
+    public int convertLetterToNum(char letter){
         char upperCaseLetter = Character.toUpperCase(letter);
         return switch (upperCaseLetter) {
             case 'A' -> 1;
@@ -201,13 +201,11 @@ public class GameBoard {
     }
 
     public Fort getFort(char targetFort){
-        for(Fort f: Forts){
-            if(f.getFortLabel() == targetFort){
-                return f;
-            }
-        }
+        return Forts.stream()
+                .filter(f -> f.getFortLabel() == targetFort)
+                .findFirst()
+                .orElse(null);
 
-        return null;
     }
 
     public int numWorkingForts(){
@@ -223,7 +221,7 @@ public class GameBoard {
     public boolean allFortsDamaged(){
         int numDamagedCells = 0;
         for(Fort f: Forts){
-            numDamagedCells+=f.getDamageTaken();
+            numDamagedCells += f.getDamageTaken();
         }
 
         return numDamagedCells == Forts.size() * MAX_CELLS_PER_FORT;

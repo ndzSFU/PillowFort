@@ -38,6 +38,16 @@ public class GameRunner {
             }
         }
 
+//        board.getForts().stream()
+//                .filter(f -> f.dealDamage() > 0)
+//                .
+//                .forEach(f -> System.out.println("Opponent #" + board.convertLetterToNum(f.getFortLabel())
+//                        + " of " + board.numWorkingForts() + " shot you for " + f.dealDamage() + " points!") );
+
+
+
+
+
         return damageFromForts;
     }
 

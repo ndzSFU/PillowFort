@@ -98,6 +98,8 @@ public class UI {
         System.out.println();
 
 
+
+
         for(char y = 'B'; y <= 'K'; y++){
             System.out.print((char)(y - 1) + " ");
 
