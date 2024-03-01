@@ -62,7 +62,8 @@ public class GameBoard {
     }
 
     int convertLetterToNum(char letter){
-        return switch (letter) {
+        char upperCaseLetter = Character.toUpperCase(letter);
+        return switch (upperCaseLetter) {
             case 'A' -> 1;
             case 'B' -> 2;
             case 'C' -> 3;
@@ -198,6 +199,16 @@ public class GameBoard {
         }
 
         return null;
+    }
+
+    public int numWorkingForts(){
+        int numWorkingForts = 0;
+        for(Fort f: Forts){
+            if(f.getDamageTaken() < 5){
+                numWorkingForts++;
+            }
+        }
+        return numWorkingForts;
     }
 
     public boolean allFortsDamaged(){

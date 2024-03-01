@@ -16,8 +16,10 @@ public class UI {
     }
 
     private static boolean isValidLetter(char letter) {
-        return letter >= 'A' && letter <= 'J';
+        char lowercaseLetter = Character.toUpperCase(letter);
+        return lowercaseLetter >= 'A' && lowercaseLetter <= 'J';
     }
+
 
     private static boolean isValidNumber(int number) {
         return number >= 1 && number <= 10;
@@ -87,6 +89,8 @@ public class UI {
     public void printBoard(GameBoard board, boolean gameDone){
         ArrayList<ArrayList<BoardSpot>> spotArray = board.getBoardSpots();
 
+        System.out.println("Game Board: ");
+
         System.out.print("  ");
         for (int x = 1; x <= 10; x++) {
             System.out.print(x + " ");
@@ -107,9 +111,6 @@ public class UI {
                 }else{
                     printEndOfGameSpot(spot);
                 }
-
-
-
             }
             System.out.println();
         }
