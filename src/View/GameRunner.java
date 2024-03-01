@@ -7,7 +7,7 @@ import Model.GameBoard;
 public class GameRunner {
     UI userInterface = new UI();
 
-    private final int oppWinCondition = 2500;
+
 
 
     boolean gameDone = false;
@@ -15,11 +15,9 @@ public class GameRunner {
 
     public void RunGame(GameBoard board, String cheating){
 
-        boolean cheat = false;
+        final int oppWinCondition = 2500;
 
-        if(cheating.equals("--cheat")){
-            cheat = true;
-        }
+        boolean cheat = cheating.equals("--cheat");
 
         if(cheat){
             userInterface.printBoard(board, cheat);
@@ -44,19 +42,24 @@ public class GameRunner {
             chosenSpot.Hit();
 
             if(chosenSpot.isFort()){
+                System.out.println("HIT!");
                 char targetFort = chosenSpot.getFortLabel();
                 Fort hitFort = board.getFort(targetFort);
                 hitFort.takeDamage();
+            }else{
+                System.out.println("Miss.");
             }
 
             int damageFromForts = 0;
 
-            int tempCounter = 1;
+            int fortCounter = 1;
 
             for(Fort f: board.getForts()){
-                System.out.println(tempCounter + " hit: " + f.dealDamage());
-                damageFromForts += f.dealDamage();
-                tempCounter++;
+                if(f.dealDamage() > 0){
+                    System.out.println("Opponent #" + fortCounter + " of " + board.numWorkingForts() + " shot you for " + f.dealDamage() + " points!");
+                    fortCounter++;
+                    damageFromForts += f.dealDamage();
+                }
             }
 
             oppPoints+=damageFromForts;
@@ -64,12 +67,15 @@ public class GameRunner {
             userInterface.printBoard(board, gameDone);
         }
 
+        System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
+
         if(board.allFortsDamaged()){
-            System.out.println("YOU WIN");
+            System.out.println("Congratulations! You won!");
         } else{
-            System.out.println("YOU LOSE");
+            System.out.println("I'm sorry, your fort is all wet! They win!");
         }
         gameDone = true;
         userInterface.printBoard(board, gameDone);
+        System.out.println("Lower case fort letters are where you shot.");
     }
 }
