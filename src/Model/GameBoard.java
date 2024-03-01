@@ -30,7 +30,6 @@ public class GameBoard {
     }
 
     public static char convertNumberToChar(int number) {
-
         // Convert the number to a character using ASCII values
         return (char) ('a' + number);
     }
@@ -45,8 +44,15 @@ public class GameBoard {
 
             // Failed to generate fort
             succesfullyMadeFort = generateFortAndReturnStatus(newFort, fortName);
-            while(!succesfullyMadeFort) {
+
+            int fortCreationAttempts = 0;
+            while(!succesfullyMadeFort && fortCreationAttempts < 100) {
                 succesfullyMadeFort = generateFortAndReturnStatus(newFort, fortName);
+                fortCreationAttempts++;
+            }
+
+            if(fortCreationAttempts == 100){
+                throw new RuntimeException("Could find a valid placement for all forts.");
             }
 
             Forts.add(newFort);
@@ -150,7 +156,7 @@ public class GameBoard {
             b.setFortLabel(fortName);
         }
 
-        newFort.copySpotList(selectedFortSpots);
+//        newFort.copySpotList(selectedFortSpots);
 
         return true;
     }

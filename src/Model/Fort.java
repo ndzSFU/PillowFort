@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Fort {
 
     private int damageTaken = 0;
-    ArrayList<BoardSpot> fortSpots;
+    //ArrayList<BoardSpot> fortSpots;
     private char fortLabel;
 
     Fort(char fortName){
@@ -13,9 +13,9 @@ public class Fort {
     }
 
     //Not quite sure what to put in this class yet
-    public void copySpotList(ArrayList<BoardSpot> spots){
-        this.fortSpots = spots;
-    }
+//    public void copySpotList(ArrayList<BoardSpot> spots){
+//        this.fortSpots = spots;
+//    }
 
     public void takeDamage(){
         damageTaken++;
