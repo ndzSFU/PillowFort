@@ -52,11 +52,10 @@ public class GameBoard {
             }
 
             if(fortCreationAttempts == 100){
-                throw new RuntimeException("Could find a valid placement for all forts.");
+                throw new RuntimeException("Couldn't find a valid placement for all forts.");
             }
 
             Forts.add(newFort);
-
         }
 
     }
@@ -86,21 +85,9 @@ public class GameBoard {
 
     public boolean generateFortAndReturnStatus(Fort newFort, char fortName) { // Main loop for fort generation
         Random randomNum = new Random();
-        int randRow = randomNum.nextInt(12);
-        int randCol = randomNum.nextInt(12);
-
-        // Spot we are checking
-        BoardSpot spotToCheck = getBoardSpots().get(randCol).get(randRow);
-
-        // Is a valid game spot and not in a fort already
-        while (!spotToCheck.isValid() || spotToCheck.isFort()) {
-            randRow = randomNum.nextInt(12);
-            randCol = randomNum.nextInt(12);
-            spotToCheck = getBoardSpots().get(randCol).get(randRow);
-        }
 
         // Two arrays, one for the actual fort, and one for spots to add
-        BoardSpot startPoint = spotToCheck;
+        BoardSpot startPoint = getValidSpotToCheck(randomNum);
         ArrayList<BoardSpot> possibleFortSpots = new ArrayList<>();
         ArrayList<BoardSpot> selectedFortSpots = new ArrayList<>();
 
@@ -144,7 +131,7 @@ public class GameBoard {
             }
         }
 
-        if (selectedFortSpots.size() != 5) {
+        if (selectedFortSpots.size() != MAX_CELLS_PER_FORT) {
             return false;
         }
 
@@ -155,11 +142,24 @@ public class GameBoard {
             getBoardSpots().get(x_pos).get(y_pos).setFort(true);
             b.setFortLabel(fortName);
         }
-
 //        newFort.copySpotList(selectedFortSpots);
-
         return true;
     }
+
+    private BoardSpot getValidSpotToCheck(Random randomNum) {
+        int randRow = randomNum.nextInt(12);
+        int randCol = randomNum.nextInt(12);
+        BoardSpot spotToCheck = getBoardSpots().get(randCol).get(randRow);
+
+        while (!spotToCheck.isValid() || spotToCheck.isFort()) {
+            randRow = randomNum.nextInt(12);
+            randCol = randomNum.nextInt(12);
+            spotToCheck = getBoardSpots().get(randCol).get(randRow);
+        }
+
+        return spotToCheck;
+    }
+
 
     // Updated methods to include row and column parameters
     private boolean isRightValid(int randRow, int randCol) {
