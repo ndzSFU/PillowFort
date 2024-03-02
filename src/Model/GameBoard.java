@@ -120,7 +120,6 @@ public class GameBoard {
             getBoardSpots().get(x_pos).get(y_pos).setFort(true);
             b.setFortLabel(fortName);
         }
-//        newFort.copySpotList(selectedFortSpots);
         return true;
     }
 
