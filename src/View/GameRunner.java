@@ -43,13 +43,22 @@ public class GameRunner {
 //                .
 //                .forEach(f -> System.out.println("Opponent #" + board.convertLetterToNum(f.getFortLabel())
 //                        + " of " + board.numWorkingForts() + " shot you for " + f.dealDamage() + " points!") );
-
-
-
-
-
         return damageFromForts;
     }
+
+    BoardSpot getBoardSpotFromUser(GameBoard board){
+        String userSpot = userInterface.getUserHit();
+        BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
+
+        while(chosenSpot.isHit()){
+            System.out.println("Spot already hit.");
+            userSpot = userInterface.getUserHit();
+            chosenSpot = board.GetInputtedBoardSpot(userSpot);
+        }
+
+        return chosenSpot;
+    }
+
 
     public void RunGame(GameBoard board, String cheating){
 
@@ -63,14 +72,7 @@ public class GameRunner {
         while(oppPoints < oppWinCondition && !board.allFortsDamaged()){
             System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
 
-            String userSpot = userInterface.getUserHit();
-            BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
-
-            while(chosenSpot.isHit()){
-                System.out.println("Spot already hit.");
-                userSpot = userInterface.getUserHit();
-                chosenSpot = board.GetInputtedBoardSpot(userSpot);
-            }
+            BoardSpot chosenSpot = getBoardSpotFromUser(board);
             chosenSpot.Hit();
 
             if(chosenSpot.isFort()){
