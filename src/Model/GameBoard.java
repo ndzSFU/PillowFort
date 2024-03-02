@@ -208,14 +208,8 @@ public class GameBoard {
 
     }
 
-    public int numWorkingForts(){
-        int numWorkingForts = 0;
-        for(Fort f: Forts){
-            if(f.getDamageTaken() < 5){
-                numWorkingForts++;
-            }
-        }
-        return numWorkingForts;
+    public long numWorkingForts(){
+        return Forts.stream().filter(f -> f.getDamageTaken() < 5).count();
     }
 
     public boolean allFortsDamaged(){
