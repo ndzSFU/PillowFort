@@ -213,11 +213,7 @@ public class GameBoard {
     }
 
     public boolean allFortsDamaged(){
-        int numDamagedCells = 0;
-        for(Fort f: Forts){
-            numDamagedCells += f.getDamageTaken();
-        }
-
+        int numDamagedCells = Forts.stream().mapToInt(f -> f.getDamageTaken()).sum();
         return numDamagedCells == Forts.size() * MAX_CELLS_PER_FORT;
     }
 }
