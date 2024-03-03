@@ -1,10 +1,10 @@
 package View;
-
-import Model.BoardSpot;
 import Model.GameBoard;
 
-import java.util.ArrayList;
-
+/**
+ * Main takes 0,1,2 arguments from command line, can take no args, defaults opponents to 5, 1 arg, num opponents or 2 args, num opponents
+ * and --cheat. Main instantiates a GameBoard and a GameRunner and then pass The gameBoard into GameRunner, run game method.
+ */
 public class Main {
     public static void main(String[] args) {
         int numOpponents = 5; // Default number
@@ -24,7 +24,6 @@ public class Main {
         }
 
         GameBoard board = new GameBoard(numOpponents);
-        UI userInterface = new UI();
         GameRunner Game = new GameRunner();
         Game.RunGame(board, cheating);
     }
