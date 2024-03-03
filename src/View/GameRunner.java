@@ -21,7 +21,7 @@ public class GameRunner {
             System.out.println("I'm sorry, your fort is all wet! They win!");
         }
 
-        userInterface.printBoard(board, true);
+        userInterface.printBoard(board, true, false);
         System.out.println("Lower case fort letters are where you shot.");
     }
 
@@ -37,12 +37,6 @@ public class GameRunner {
                 damageFromForts += f.dealDamage();
             }
         }
-
-//        board.getForts().stream()
-//                .filter(f -> f.dealDamage() > 0)
-//                .
-//                .forEach(f -> System.out.println("Opponent #" + board.convertLetterToNum(f.getFortLabel())
-//                        + " of " + board.numWorkingForts() + " shot you for " + f.dealDamage() + " points!") );
         return damageFromForts;
     }
 
@@ -65,9 +59,10 @@ public class GameRunner {
         boolean cheat = cheating.equals("--cheat");
 
         if(cheat){
-            userInterface.printBoard(board, cheat);
+            //Pretends game is done so the cheat end game view of the board can be displayed
+            userInterface.printBoard(board, true, cheat);
         }
-        userInterface.printBoard(board, gameDone);
+        userInterface.printBoard(board, gameDone, cheat);
 
         while(oppPoints < oppWinCondition && !board.allFortsDamaged()){
             System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
@@ -85,7 +80,7 @@ public class GameRunner {
             }
             oppPoints+=getDamageFromForts(board);
 
-            userInterface.printBoard(board, gameDone);
+            userInterface.printBoard(board, gameDone, cheat);
         }
         printEndGameStats(board);
     }

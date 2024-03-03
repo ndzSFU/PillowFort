@@ -74,6 +74,7 @@ public class UI {
     }
 
     private void printEndOfGameSpot(BoardSpot spot){
+
         if(!spot.isValid()){
 
         } else if (!spot.isFort()){
@@ -86,7 +87,18 @@ public class UI {
         }
     }
 
-    public void printBoard(GameBoard board, boolean gameDone){
+    private void printCheatSpot(BoardSpot spot){
+        if(!spot.isValid()){
+
+        } else if (!spot.isFort()){
+            System.out.print(". ");
+        } else{
+            char upperCaseFortSpot = Character.toUpperCase(spot.getFortLabel());
+            System.out.print(upperCaseFortSpot+ " ");
+        }
+    }
+
+    public void printBoard(GameBoard board, boolean gameDone, boolean cheat){
         ArrayList<ArrayList<BoardSpot>> spotArray = board.getBoardSpots();
 
         System.out.println("Game Board: ");
@@ -96,9 +108,6 @@ public class UI {
             System.out.print(x + " ");
         }
         System.out.println();
-
-
-
 
         for(char y = 'B'; y <= 'K'; y++){
             System.out.print((char)(y - 1) + " ");
@@ -110,6 +119,8 @@ public class UI {
 
                 if(!gameDone){
                     printRegularSpot(spot);
+                }else if(cheat){
+                    printCheatSpot(spot);
                 }else{
                     printEndOfGameSpot(spot);
                 }
@@ -117,5 +128,4 @@ public class UI {
             System.out.println();
         }
     }
-
 }
