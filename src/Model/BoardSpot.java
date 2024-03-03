@@ -3,13 +3,18 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * BoardSpot object holds all relevant information pertaining to a specific spot/square on the board. A single BoardSpot hold
+ * information including weather or not this spot has been hit, if there's a fort connected to this spot, if the spot can house a fort,
+ * if the spot is in bounds, the spot's position( x and y coordinates), and the label of the fort which has been placed in this spot.
+ */
 public class BoardSpot extends ArrayList<BoardSpot> {
     private boolean isHit;
     private boolean isFort;
-    private boolean isShown;
     private boolean isPossibleFort;
 
-    private boolean isValid;
+    final private boolean isValid;
 
     private final int x_position;
     private final int y_position;
@@ -19,7 +24,6 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     public BoardSpot(int position_x, int position_y) {
         this.isHit = false;
         this.isFort = false;
-        this.isShown = false;
 
         this.x_position = position_x;
         this.y_position = position_y;
@@ -47,15 +51,6 @@ public class BoardSpot extends ArrayList<BoardSpot> {
     public void setFort(boolean fort) {
         isFort = fort;
     }
-
-    public boolean isShown() {
-        return isShown;
-    }
-
-    public void setShown(boolean shown) {
-        isShown = shown;
-    }
-
 
     public int getY_position() {
         return y_position;
