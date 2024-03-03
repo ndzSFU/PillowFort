@@ -4,6 +4,12 @@ import Model.BoardSpot;
 import Model.Fort;
 import Model.GameBoard;
 
+/**
+ * The GameRunners manages the running/process of the game. The GameRunner stores the opponents points and loops
+ * runs its main game loop until the points threshold is met or there are no more forts in the board. The game runner depends on
+ * an already instantiated board to be passed to it. The fort also holds an instantiated UI object which it uses for game inputs and most
+ * game outputs.
+ */
 public class GameRunner {
     UI userInterface = new UI();
 
@@ -40,20 +46,6 @@ public class GameRunner {
         return damageFromForts;
     }
 
-    BoardSpot getBoardSpotFromUser(GameBoard board){
-        String userSpot = userInterface.getUserHit();
-        BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
-
-        while(chosenSpot.isHit()){
-            System.out.println("Spot already hit.");
-            userSpot = userInterface.getUserHit();
-            chosenSpot = board.GetInputtedBoardSpot(userSpot);
-        }
-
-        return chosenSpot;
-    }
-
-
     public void RunGame(GameBoard board, String cheating){
 
         boolean cheat = cheating.equals("--cheat");
@@ -67,7 +59,7 @@ public class GameRunner {
         while(oppPoints < oppWinCondition && !board.allFortsDamaged()){
             System.out.println("Opponents points: " + oppPoints + "/" + oppWinCondition + ".");
 
-            BoardSpot chosenSpot = getBoardSpotFromUser(board);
+            BoardSpot chosenSpot = userInterface.getBoardSpotFromUser(board);
             chosenSpot.Hit();
 
             if(chosenSpot.isFort()){

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
+/**
+ * The GameBoard models the board and the forts which are held in it. The board hold has the ability to generate forts onto it's self
+ * which in then stores. The board can choose valid spots for a fort and then creates a fort object connected to those spots.
+ * The board also holds an array of the individual game spots.
+ */
 public class GameBoard {
 
     final int MAX_CELLS_PER_FORT = 5;
@@ -27,9 +31,7 @@ public class GameBoard {
 
             this.boardSpots.add(row);
         }
-
         generateAllForts(numOpponents);
-
     }
 
     public static char convertNumberToChar(int number) {

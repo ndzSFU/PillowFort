@@ -6,6 +6,10 @@ import Model.GameBoard;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The UI class handles all interactions with the keyboard, like getting the users input hit. It also handles the board printing, and
+ * the UI takes in an already instantiated board object and then uses information from the board to display it.
+ */
 public class UI {
 
     UI(){}
@@ -58,6 +62,19 @@ public class UI {
         }
 
         return userIn;
+    }
+
+    BoardSpot getBoardSpotFromUser(GameBoard board){
+        String userSpot = getUserHit();
+        BoardSpot chosenSpot = board.GetInputtedBoardSpot(userSpot);
+
+        while(chosenSpot.isHit()){
+            System.out.println("Spot already hit.");
+            userSpot = getUserHit();
+            chosenSpot = board.GetInputtedBoardSpot(userSpot);
+        }
+
+        return chosenSpot;
     }
 
     private void printRegularSpot(BoardSpot spot){
